@@ -1,13 +1,12 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 import { useSchema } from "@/features/schema-management";
 import { AutoLayout } from "@/shared/lib/layout/auto-layout";
 import { JsonSchemaParser } from "@/shared/lib/parsers/json-parser";
 
 export default function SchemaUpload() {
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const { loadSchema, setLoading, setError, clearSchema } = useSchema();
 
@@ -70,16 +69,14 @@ export default function SchemaUpload() {
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("File input changed!", e.target.files);
     const file = e.target.files?.[0];
     if (file) {
+      console.log("Processing file from header:", file.name);
       processFile(file);
     }
     // Reset input
     e.target.value = "";
-  };
-
-  const handleUploadClick = () => {
-    fileInputRef.current?.click();
   };
 
   const handleClear = () => {
@@ -100,11 +97,10 @@ export default function SchemaUpload() {
 
   return (
     <div className="flex items-center gap-3">
-      {/* Upload Button */}
-      <button
-        onClick={handleUploadClick}
-        disabled={isProcessing}
-        className="bg-primary text-primary-foreground hover:bg-primary/90 border-primary inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+      {/* Upload Button - Using label approach */}
+      <label
+        className="bg-primary text-primary-foreground hover:bg-primary/90 border-primary inline-flex cursor-pointer items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+        style={{ zIndex: 1000 }}
       >
         {isProcessing ? (
           <>
@@ -114,7 +110,14 @@ export default function SchemaUpload() {
         ) : (
           <>📁 Upload Schema</>
         )}
-      </button>
+        <input
+          type="file"
+          accept=".json"
+          onChange={handleFileSelect}
+          style={{ display: "none" }}
+          disabled={isProcessing}
+        />
+      </label>
 
       {/* Clear Button */}
       <button
@@ -123,15 +126,6 @@ export default function SchemaUpload() {
       >
         🗑️ Clear
       </button>
-
-      {/* Hidden File Input */}
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept=".json"
-        onChange={handleFileSelect}
-        className="hidden"
-      />
     </div>
   );
 }

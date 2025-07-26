@@ -92,8 +92,10 @@ export default function SchemaDropZone() {
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("Drop zone file input changed!", e.target.files);
     const file = e.target.files?.[0];
     if (file) {
+      console.log("Processing file from drop zone:", file.name);
       processFile(file);
     }
     e.target.value = "";
@@ -102,25 +104,22 @@ export default function SchemaDropZone() {
   return (
     <div className="bg-erd-bg-primary flex h-full w-full items-center justify-center">
       <div className="mx-4 w-full max-w-md">
-        <div
-          className={`relative rounded-lg border-2 border-dashed p-8 text-center transition-colors ${
+        <label
+          className={`relative block cursor-pointer rounded-lg border-2 border-dashed p-8 text-center transition-colors ${
             isDragOver
               ? "border-primary bg-primary/5"
               : "border-border hover:border-primary/50"
-          } ${isProcessing ? "pointer-events-none opacity-50" : "cursor-pointer"} `}
+          } ${isProcessing ? "pointer-events-none opacity-50" : ""} `}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
-          onClick={() =>
-            document.getElementById("dropzone-file-input")?.click()
-          }
         >
           <input
-            id="dropzone-file-input"
             type="file"
             accept=".json"
             onChange={handleFileSelect}
-            className="hidden"
+            style={{ display: "none" }}
+            disabled={isProcessing}
           />
 
           <div className="space-y-4">
@@ -148,7 +147,7 @@ export default function SchemaDropZone() {
               </div>
             )}
           </div>
-        </div>
+        </label>
 
         <div className="text-erd-text-secondary mt-6 text-center">
           <h3 className="text-erd-text-primary mb-2 text-lg font-semibold">

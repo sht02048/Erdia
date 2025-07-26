@@ -12,7 +12,9 @@ export default function ErdHeader() {
           <p className="text-erd-text-secondary">{DESCRIPTION}</p>
         </div>
 
-        <SchemaUpload />
+        <div>
+          <SchemaUpload />
+        </div>
       </div>
     </div>
   );
