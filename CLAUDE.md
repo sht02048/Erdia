@@ -35,30 +35,37 @@ erdia/
 ### FSD Layer Details
 
 **1. Shared Layer (`src/shared/`)**
+
 - Common code reused across all layers
 - Components: Reusable UI components, utils, hooks, types, API clients
 
 **2. Entities Layer (`src/entities/`)**
+
 - Business domain core entities
 - Contains entity-specific API, types, UI components, utilities
 
 **3. Features Layer (`src/features/`)**
+
 - User interactions and business logic
 - Contains feature API logic, hooks, types, UI components
 
 **4. Widgets Layer (`src/widgets/`)**
+
 - Independent UI blocks combining features/entities
 - Complete widgets with providers, layouts
 
 **5. Pages Layer (`src/page/`)**
+
 - Page-level components that combine widgets
 
 **6. App Layer (`app/`)**
+
 - Handled by Next.js App Router structure
 
 ### FSD Import Rules (Critical)
 
 **Import dependencies MUST follow this hierarchy:**
+
 - **Shared** can be imported by all layers
 - **Entities** can import from Shared only
 - **Features** can import from Entities and Shared
@@ -69,6 +76,7 @@ erdia/
 ### File Organization Pattern
 
 Each FSD slice follows this structure:
+
 ```
 [layer]/[slice]/
 ├── api/                   # API-related code
@@ -85,7 +93,7 @@ Each FSD slice follows this structure:
 - **Next.js**: 15.4.4 with App Router and TypeScript support
 - **Styling**: Tailwind CSS 4 with custom CSS variables for theming
 - **Fonts**: Geist Sans and Geist Mono from Google Fonts
-- **TypeScript**: Configured with strict mode and path aliases (@/* -> ./src/*)
+- **TypeScript**: Configured with strict mode and path aliases (@/_ -> ./src/_)
 - **ESLint**: Uses Next.js core-web-vitals and TypeScript extensions
 - **Pre-commit**: Lefthook with lint and type-check hooks
 - **Commits**: Custom commitizen with 10 Korean gitmoji types
