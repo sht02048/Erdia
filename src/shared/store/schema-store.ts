@@ -7,7 +7,6 @@ interface SchemaState {
   schema: Schema | null;
   isLoading: boolean;
   error: string | null;
-  warnings: string[];
 }
 
 interface SchemaActions {
@@ -15,7 +14,6 @@ interface SchemaActions {
   clearSchema: () => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
-  setWarnings: (warnings: string[]) => void;
   hasSchema: () => boolean;
 }
 
@@ -38,7 +36,6 @@ export const useSchemaStore = create<SchemaState & SchemaActions>()(
         set({
           schema: null,
           error: null,
-          warnings: [],
           isLoading: false,
         }),
 
@@ -50,8 +47,6 @@ export const useSchemaStore = create<SchemaState & SchemaActions>()(
           isLoading: false,
         }),
 
-      setWarnings: (warnings) => set({ warnings }),
-
       hasSchema: () => {
         const state = get();
         return state.schema !== null && state.schema.tables.length > 0;
@@ -61,7 +56,6 @@ export const useSchemaStore = create<SchemaState & SchemaActions>()(
       name: "erdia-schema-store",
       partialize: (state) => ({
         schema: state.schema,
-        warnings: state.warnings,
       }),
     }
   )

@@ -9,7 +9,7 @@ import { Button } from "@/shared/ui/shadcn/button";
 
 export default function SchemaUpload() {
   const [isProcessing, setIsProcessing] = useState(false);
-  const { setSchema, setLoading, setError, setWarnings } = useSchemaStore();
+  const { setSchema, setLoading, setError } = useSchemaStore();
 
   const processFile = async (file: File) => {
     setIsProcessing(true);
@@ -30,15 +30,7 @@ export default function SchemaUpload() {
       const layout = new AutoLayout();
       const layoutedSchema = layout.applyLayout(schema);
 
-      const hasPositions = schema.tables.some((table) => table.position);
-      const warnings = hasPositions
-        ? []
-        : [
-            "Auto-layout applied - table positions were generated automatically",
-          ];
-
       setSchema(layoutedSchema);
-      setWarnings(warnings);
     } catch (error) {
       setError(
         error instanceof Error ? error.message : "Failed to process file"

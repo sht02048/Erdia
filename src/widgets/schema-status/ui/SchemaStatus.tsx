@@ -3,7 +3,7 @@
 import { useSchemaStore } from "@/shared/store/schema-store";
 
 export default function SchemaStatus() {
-  const { schema, isLoading, error, warnings } = useSchemaStore();
+  const { schema, isLoading, error } = useSchemaStore();
 
   return (
     <div className="bg-muted border-border border-b px-4 py-2">
@@ -27,12 +27,6 @@ export default function SchemaStatus() {
               </span>
             </div>
           </div>
-
-          {warnings.length > 0 && (
-            <div className="text-sm text-amber-600">
-              ⚠️ {warnings.join(", ")}
-            </div>
-          )}
         </div>
       )}
     </div>

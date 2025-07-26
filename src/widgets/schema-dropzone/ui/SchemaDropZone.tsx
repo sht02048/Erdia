@@ -12,7 +12,7 @@ export default function SchemaDropZone() {
   const router = useRouter();
   const [isDragOver, setIsDragOver] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-  const { setSchema, setLoading, setError, setWarnings } = useSchemaStore();
+  const { setSchema, setLoading, setError } = useSchemaStore();
 
   const processFile = async (file: File) => {
     setIsProcessing(true);
@@ -33,15 +33,7 @@ export default function SchemaDropZone() {
       const layout = new AutoLayout();
       const layoutedSchema = layout.applyLayout(schema);
 
-      const hasPositions = schema.tables.some((table) => table.position);
-      const warnings = hasPositions
-        ? []
-        : [
-            "Auto-layout applied - table positions were generated automatically",
-          ];
-
       setSchema(layoutedSchema);
-      setWarnings(warnings);
 
       router.push("/erd");
     } catch (error) {
