@@ -4,7 +4,7 @@ import SchemaStatus from "@/widgets/schema-status";
 
 export default function ErdPage() {
   return (
-    <div className="bg-erd-bg-primary flex h-screen w-full flex-col">
+    <div className="bg-background flex h-screen w-full flex-col">
       <ErdHeader />
       <SchemaStatus />
 

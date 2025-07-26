@@ -112,7 +112,7 @@ export default function SchemaDropZone() {
   };
 
   return (
-    <div className="bg-erd-bg-primary flex h-full w-full items-center justify-center">
+    <div className="bg-background flex h-full w-full items-center justify-center">
       <div className="mx-4 w-full max-w-md">
         <label
           className={`relative block cursor-pointer rounded-lg border-2 border-dashed p-8 text-center transition-colors ${

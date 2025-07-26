@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 import { useSchemaStore } from "@/shared/store/schema-store";
+import { ThemeToggle } from "@/shared/ui/theme-toggle";
 import SchemaDropZone from "@/widgets/schema-dropzone";
 import SchemaStatus from "@/widgets/schema-status";
 
@@ -19,13 +20,18 @@ export default function UploadPage() {
   }, [hasSchema, router]);
 
   return (
-    <div className="bg-erd-bg-primary relative flex min-h-screen items-center justify-center">
+    <div className="bg-background relative flex min-h-screen items-center justify-center">
+      {/* Theme toggle in top right corner */}
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
+
       {/* Title positioned absolutely above dropzone */}
       <div className="absolute top-1/2 left-1/2 -mt-42 w-150 -translate-x-1/2 -translate-y-1/2 transform text-center">
-        <h1 className="text-erd-text-primary mb-4 text-4xl font-bold">
+        <h1 className="text-foreground mb-4 text-4xl font-bold">
           Welcome to Erdia
         </h1>
-        <p className="text-erd-text-secondary text-lg">
+        <p className="text-muted-foreground text-lg">
           Upload your JSON schema file to generate an Entity Relationship
           Diagram
         </p>

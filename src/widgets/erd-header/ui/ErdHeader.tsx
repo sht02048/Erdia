@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import { useSchemaStore } from "@/shared/store/schema-store";
+import { ThemeToggle } from "@/shared/ui/theme-toggle";
 import SchemaUpload from "@/widgets/schema-upload";
 
 const TITLE = "Erdia";
@@ -18,14 +19,15 @@ export default function ErdHeader() {
   };
 
   return (
-    <div className="bg-erd-bg-secondary border-erd-border-secondary border-b p-4">
+    <div className="bg-card border-border border-b p-4">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-erd-text-primary text-2xl font-bold">{TITLE}</h1>
-          <p className="text-erd-text-secondary">{DESCRIPTION}</p>
+          <h1 className="text-card-foreground text-2xl font-bold">{TITLE}</h1>
+          <p className="text-muted-foreground">{DESCRIPTION}</p>
         </div>
 
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <SchemaUpload />
           <button
             onClick={handleClear}
