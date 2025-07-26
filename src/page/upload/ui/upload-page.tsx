@@ -1,20 +1,16 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { redirect } from "next/navigation";
 
 import { useSchemaStore } from "@/shared/store/schema-store";
 import { SchemaZone, UploadThemeButton, UploadTitle } from "@/widgets/upload/";
 
 export default function UploadPage() {
-  const router = useRouter();
   const { hasSchema } = useSchemaStore();
 
-  useEffect(() => {
-    if (hasSchema()) {
-      router.push("/erd");
-    }
-  }, [hasSchema, router]);
+  if (hasSchema()) {
+    redirect("/erd");
+  }
 
   return (
     <div className="bg-background relative flex min-h-screen items-center justify-center">
