@@ -23,7 +23,7 @@ function TableNode({ data }: TableNodeProps) {
         {data.columns.map((column) => (
           <div
             key={`${data.tableName}-${column.name}`}
-            className="border-border flex items-center justify-between border-b px-4 py-2 last:border-b-0"
+            className="border-border flex items-center justify-between gap-8 border-b px-4 py-2 last:border-b-0"
           >
             <div className="flex items-center gap-2">
               {column.isPrimaryKey && (
