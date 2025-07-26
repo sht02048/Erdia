@@ -7,7 +7,7 @@ import { AutoLayout } from "@/shared/lib/layout/auto-layout";
 import { JsonSchemaParser } from "@/shared/lib/parsers/json-parser";
 import { useSchemaStore } from "@/shared/store/schema-store";
 
-export default function SchemaDropZone() {
+export function SchemaDropZone() {
   const router = useRouter();
   const [isDragOver, setIsDragOver] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);

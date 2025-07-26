@@ -1,5 +1,4 @@
-import SchemaDropZone from "@/widgets/schema-dropzone";
-
+import { SchemaDropZone } from "./schema-drop-zone";
 import { UploadTitle } from "./upload-title";
 
 export function SchemaZone() {
