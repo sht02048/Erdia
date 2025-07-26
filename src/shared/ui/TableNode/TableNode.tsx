@@ -13,8 +13,8 @@ export interface TableNodeProps {
 
 export default function TableNode({ data }: TableNodeProps) {
   return (
-    <div className="min-w-48 rounded-lg border border-gray-300 bg-white shadow-lg">
-      <div className="rounded-t-lg bg-blue-600 px-4 py-2 text-white">
+    <div className="border-erd-table-border bg-erd-table-bg min-w-48 rounded-lg border shadow-xl">
+      <div className="bg-erd-table-header-bg text-erd-text-primary rounded-t-lg px-4 py-2">
         <h3 className="font-semibold">{data.tableName}</h3>
       </div>
 
@@ -22,33 +22,41 @@ export default function TableNode({ data }: TableNodeProps) {
         {data.columns.map((column, index) => (
           <div
             key={index}
-            className="flex items-center justify-between border-b border-gray-200 px-4 py-2 last:border-b-0"
+            className="border-erd-table-border flex items-center justify-between border-b px-4 py-2 last:border-b-0"
           >
             <div className="flex items-center gap-2">
               {column.isPrimaryKey && (
-                <span className="text-xs text-yellow-600">🔑</span>
+                <span className="text-erd-icon-primary text-xs">🔑</span>
               )}
               {column.isForeignKey && (
-                <span className="text-xs text-green-600">🔗</span>
+                <span className="text-erd-icon-secondary text-xs">🔗</span>
               )}
-              <span className="font-medium text-gray-800">{column.name}</span>
+              <span className="text-erd-text-primary font-medium">
+                {column.name}
+              </span>
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-xs text-gray-500">{column.type}</span>
+              <span className="text-erd-text-secondary text-xs">
+                {column.type}
+              </span>
               {column.isNotNull && (
-                <span className="text-xs text-red-500">*</span>
+                <span className="text-erd-icon-danger text-xs">*</span>
               )}
             </div>
           </div>
         ))}
       </div>
 
-      <Handle type="target" position={Position.Left} className="!bg-blue-500" />
+      <Handle
+        type="target"
+        position={Position.Left}
+        className="!bg-erd-handle"
+      />
       <Handle
         type="source"
         position={Position.Right}
-        className="!bg-blue-500"
+        className="!bg-erd-handle"
       />
     </div>
   );

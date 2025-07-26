@@ -23,7 +23,7 @@ export function convertRelationshipToEdge(relationship: Relationship): Edge {
     sourceHandle: "right",
     targetHandle: "left",
     type: "smoothstep",
-    style: { stroke: "#3b82f6", strokeWidth: 2 },
+    style: { stroke: "var(--erd-connection-line)", strokeWidth: 2 },
   };
 }
 

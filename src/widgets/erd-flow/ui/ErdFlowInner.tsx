@@ -22,14 +22,14 @@ export default function ErdFlowInner({ schema }: ErdFlowProps) {
         edges={edges}
         nodeTypes={nodeTypes}
         fitView
-        className="bg-gray-50"
+        className="bg-erd-bg-primary"
       >
-        <Background />
-        <Controls />
+        <Background color="var(--erd-bg-tertiary)" />
+        <Controls className="[&_button]:!bg-erd-bg-secondary [&_button]:!border-erd-border-primary [&_button]:!text-erd-text-primary [&_button:hover]:!bg-erd-bg-tertiary" />
         <MiniMap
-          className="!bg-white"
-          nodeColor="#3b82f6"
-          maskColor="rgba(0, 0, 0, 0.1)"
+          className="!bg-erd-bg-secondary !border-erd-border-primary"
+          nodeColor="var(--erd-accent-primary)"
+          maskColor="rgba(0, 0, 0, 0.3)"
         />
       </ReactFlow>
     </div>

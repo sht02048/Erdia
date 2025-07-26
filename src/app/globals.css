@@ -12,6 +12,32 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* ERD Theme Colors */
+  --erd-bg-primary: #111827;
+  --erd-bg-secondary: #1f2937;
+  --erd-bg-tertiary: #374151;
+
+  --erd-text-primary: #f9fafb;
+  --erd-text-secondary: #9ca3af;
+  --erd-text-muted: #6b7280;
+
+  --erd-border-primary: #4b5563;
+  --erd-border-secondary: #374151;
+
+  --erd-accent-primary: #64748b;
+  --erd-accent-secondary: #475569;
+
+  --erd-table-bg: #1f2937;
+  --erd-table-header-bg: #334155;
+  --erd-table-border: #4b5563;
+
+  --erd-icon-primary: #fbbf24;
+  --erd-icon-secondary: #34d399;
+  --erd-icon-danger: #f87171;
+
+  --erd-connection-line: #64748b;
+  --erd-handle: #94a3b8;
 }
 
 @theme inline {
@@ -19,6 +45,32 @@
   --color-foreground: var(--foreground);
   --font-sans:
     "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  /* ERD Theme Variables for Tailwind */
+  --color-erd-bg-primary: var(--erd-bg-primary);
+  --color-erd-bg-secondary: var(--erd-bg-secondary);
+  --color-erd-bg-tertiary: var(--erd-bg-tertiary);
+
+  --color-erd-text-primary: var(--erd-text-primary);
+  --color-erd-text-secondary: var(--erd-text-secondary);
+  --color-erd-text-muted: var(--erd-text-muted);
+
+  --color-erd-border-primary: var(--erd-border-primary);
+  --color-erd-border-secondary: var(--erd-border-secondary);
+
+  --color-erd-accent-primary: var(--erd-accent-primary);
+  --color-erd-accent-secondary: var(--erd-accent-secondary);
+
+  --color-erd-table-bg: var(--erd-table-bg);
+  --color-erd-table-header-bg: var(--erd-table-header-bg);
+  --color-erd-table-border: var(--erd-table-border);
+
+  --color-erd-icon-primary: var(--erd-icon-primary);
+  --color-erd-icon-secondary: var(--erd-icon-secondary);
+  --color-erd-icon-danger: var(--erd-icon-danger);
+
+  --color-erd-connection-line: var(--erd-connection-line);
+  --color-erd-handle: var(--erd-handle);
 }
 
 @media (prefers-color-scheme: dark) {

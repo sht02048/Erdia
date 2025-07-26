@@ -4,7 +4,7 @@ import ErdHeader from "@/widgets/erd-header";
 
 export default function ErdPage() {
   return (
-    <div className="h-screen w-full">
+    <div className="bg-erd-bg-primary h-screen w-full">
       <ErdHeader />
 
       <div className="h-[calc(100vh-100px)]">
