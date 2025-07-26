@@ -1,3 +1,5 @@
-export default function Erd() {
-  return <div>erd page</div>;
+import ErdPage from "@/page/erd";
+
+export default function ErdRoute() {
+  return <ErdPage />;
 }
