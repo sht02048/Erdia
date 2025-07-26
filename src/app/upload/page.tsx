@@ -19,22 +19,22 @@ export default function UploadPage() {
   }, [hasSchema, router]);
 
   return (
-    <div className="bg-erd-bg-primary flex min-h-screen flex-col items-center">
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8 text-center">
-          <h1 className="text-erd-text-primary mb-4 text-4xl font-bold">
-            Welcome to Erdia
-          </h1>
-          <p className="text-erd-text-secondary text-lg">
-            Upload your JSON schema file to generate an Entity Relationship
-            Diagram
-          </p>
-        </div>
+    <div className="bg-erd-bg-primary relative flex min-h-screen items-center justify-center">
+      {/* Title positioned absolutely above dropzone */}
+      <div className="absolute top-1/2 left-1/2 -mt-42 w-150 -translate-x-1/2 -translate-y-1/2 transform text-center">
+        <h1 className="text-erd-text-primary mb-4 text-4xl font-bold">
+          Welcome to Erdia
+        </h1>
+        <p className="text-erd-text-secondary text-lg">
+          Upload your JSON schema file to generate an Entity Relationship
+          Diagram
+        </p>
+      </div>
 
-        <div className="mx-auto max-w-2xl space-y-6">
-          <SchemaDropZone />
-          <SchemaStatus />
-        </div>
+      {/* Dropzone centered on the page */}
+      <div className="w-full max-w-2xl space-y-6 px-4">
+        <SchemaDropZone />
+        <SchemaStatus />
       </div>
     </div>
   );
