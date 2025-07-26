@@ -10,10 +10,10 @@ export interface LayoutConfig {
 }
 
 const DEFAULT_CONFIG: LayoutConfig = {
-  nodeWidth: 200,
-  nodeHeight: 100,
-  horizontalSpacing: 300,
-  verticalSpacing: 150,
+  nodeWidth: 300,
+  nodeHeight: 450,
+  horizontalSpacing: 150,
+  verticalSpacing: 100,
   startX: 100,
   startY: 100,
 };
@@ -95,10 +95,10 @@ export class AutoLayout {
     tables.forEach((table, index) => {
       if (!table.position) {
         const angle = (index / tables.length) * 2 * Math.PI;
-        const radius = 200;
+        const radius = 400;
         table.position = {
-          x: 400 + radius * Math.cos(angle),
-          y: 300 + radius * Math.sin(angle),
+          x: 600 + radius * Math.cos(angle),
+          y: 400 + radius * Math.sin(angle),
         };
       }
     });
@@ -122,9 +122,9 @@ export class AutoLayout {
 
           const dx = table1.position.x - table2.position.x;
           const dy = table1.position.y - table2.position.y;
-          const distance = Math.sqrt(dx * dx + dy * dy) || 1;
+          const distance = Math.max(Math.sqrt(dx * dx + dy * dy), 150);
 
-          const repulsiveForce = 5000 / (distance * distance);
+          const repulsiveForce = 25000 / (distance * distance);
           const fx = (dx / distance) * repulsiveForce;
           const fy = (dy / distance) * repulsiveForce;
 
@@ -173,8 +173,8 @@ export class AutoLayout {
         table.position.y += force.y * damping;
 
         // Keep nodes in bounds
-        table.position.x = Math.max(50, Math.min(1500, table.position.x));
-        table.position.y = Math.max(50, Math.min(1000, table.position.y));
+        table.position.x = Math.max(200, Math.min(4000, table.position.x));
+        table.position.y = Math.max(200, Math.min(3000, table.position.y));
       });
     }
 

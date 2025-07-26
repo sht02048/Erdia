@@ -3,7 +3,6 @@
     {
       "id": "customers",
       "name": "customers",
-      "position": { "x": 100, "y": 100 },
       "columns": [
         {
           "name": "id",
@@ -23,7 +22,6 @@
     {
       "id": "products",
       "name": "products",
-      "position": { "x": 500, "y": 100 },
       "columns": [
         {
           "name": "id",
@@ -46,7 +44,6 @@
     {
       "id": "categories",
       "name": "categories",
-      "position": { "x": 800, "y": 100 },
       "columns": [
         {
           "name": "id",
@@ -66,7 +63,6 @@
     {
       "id": "orders",
       "name": "orders",
-      "position": { "x": 100, "y": 400 },
       "columns": [
         {
           "name": "id",
@@ -118,7 +114,6 @@
     {
       "id": "order_items",
       "name": "order_items",
-      "position": { "x": 500, "y": 400 },
       "columns": [
         {
           "name": "id",
@@ -147,7 +142,6 @@
     {
       "id": "addresses",
       "name": "addresses",
-      "position": { "x": 100, "y": 700 },
       "columns": [
         {
           "name": "id",
