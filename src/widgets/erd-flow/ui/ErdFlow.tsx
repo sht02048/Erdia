@@ -4,16 +4,16 @@ import "@xyflow/react/dist/style.css";
 
 import { ReactFlowProvider } from "@xyflow/react";
 
-import { useSchema } from "@/features/schema-management";
+import { useSchemaStore } from "@/shared/store/schema-store";
 
 import ErdFlowInner from "./ErdFlowInner";
 
 export default function ErdFlow() {
-  const { state } = useSchema();
+  const { schema } = useSchemaStore();
 
   return (
     <ReactFlowProvider>
-      <ErdFlowInner schema={state.schema} />
+      <ErdFlowInner schema={schema} />
     </ReactFlowProvider>
   );
 }

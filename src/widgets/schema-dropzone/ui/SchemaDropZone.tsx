@@ -1,15 +1,17 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { useSchema } from "@/features/schema-management";
 import { AutoLayout } from "@/shared/lib/layout/auto-layout";
 import { JsonSchemaParser } from "@/shared/lib/parsers/json-parser";
+import { useSchemaStore } from "@/shared/store/schema-store";
 
 export default function SchemaDropZone() {
+  const router = useRouter();
   const [isDragOver, setIsDragOver] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-  const { loadSchema, setLoading, setError } = useSchema();
+  const { setSchema, setLoading, setError, setWarnings } = useSchemaStore();
 
   const processFile = async (file: File) => {
     console.log("Drop zone processing file:", file.name);
@@ -35,14 +37,22 @@ export default function SchemaDropZone() {
       const layout = new AutoLayout();
       const layoutedSchema = layout.applyLayout(schema);
 
-      // Load schema
-      loadSchema(layoutedSchema, {
-        fileName: file.name,
-        isValid: true,
-        uploadedAt: new Date(),
-      });
+      // Set warnings for auto-layout
+      const hasPositions = schema.tables.some((table) => table.position);
+      const warnings = hasPositions
+        ? []
+        : [
+            "Auto-layout applied - table positions were generated automatically",
+          ];
+
+      // Load schema and redirect
+      setSchema(layoutedSchema);
+      setWarnings(warnings);
 
       console.log("Schema loaded from drop zone:", layoutedSchema);
+
+      // Redirect to ERD page
+      router.push("/erd");
     } catch (error) {
       console.error("Drop zone error:", error);
       setError(
@@ -148,16 +158,6 @@ export default function SchemaDropZone() {
             )}
           </div>
         </label>
-
-        <div className="text-erd-text-secondary mt-6 text-center">
-          <h3 className="text-erd-text-primary mb-2 text-lg font-semibold">
-            Welcome to Erdia
-          </h3>
-          <p className="text-sm">
-            Upload your database schema to visualize entity relationships. Start
-            by uploading a JSON schema file.
-          </p>
-        </div>
       </div>
     </div>
   );

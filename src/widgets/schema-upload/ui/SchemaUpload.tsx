@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 
-import { useSchema } from "@/features/schema-management";
 import { AutoLayout } from "@/shared/lib/layout/auto-layout";
 import { JsonSchemaParser } from "@/shared/lib/parsers/json-parser";
+import { useSchemaStore } from "@/shared/store/schema-store";
 
 export default function SchemaUpload() {
   const [isProcessing, setIsProcessing] = useState(false);
-  const { loadSchema, setLoading, setError, clearSchema } = useSchema();
+  const { setSchema, setLoading, setError, setWarnings } = useSchemaStore();
 
   const processFile = async (file: File) => {
     console.log("Processing file:", file.name);
@@ -34,12 +34,17 @@ export default function SchemaUpload() {
       const layout = new AutoLayout();
       const layoutedSchema = layout.applyLayout(schema);
 
+      // Set warnings for auto-layout
+      const hasPositions = schema.tables.some((table) => table.position);
+      const warnings = hasPositions
+        ? []
+        : [
+            "Auto-layout applied - table positions were generated automatically",
+          ];
+
       // Load schema
-      loadSchema(layoutedSchema, {
-        fileName: file.name,
-        isValid: true,
-        uploadedAt: new Date(),
-      });
+      setSchema(layoutedSchema);
+      setWarnings(warnings);
 
       console.log("Schema loaded successfully:", layoutedSchema);
     } catch (error) {
@@ -79,53 +84,26 @@ export default function SchemaUpload() {
     e.target.value = "";
   };
 
-  const handleClear = () => {
-    clearSchema();
-  };
-
-  const _handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      processFile(file);
-    }
-  };
-
-  const _handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-  };
-
   return (
-    <div className="flex items-center gap-3">
-      {/* Upload Button - Using label approach */}
-      <label
-        className="bg-primary text-primary-foreground hover:bg-primary/90 border-primary inline-flex cursor-pointer items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50"
-        style={{ zIndex: 1000 }}
-      >
-        {isProcessing ? (
-          <>
-            <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-r-transparent" />
-            Processing...
-          </>
-        ) : (
-          <>📁 Upload Schema</>
-        )}
-        <input
-          type="file"
-          accept=".json"
-          onChange={handleFileSelect}
-          style={{ display: "none" }}
-          disabled={isProcessing}
-        />
-      </label>
-
-      {/* Clear Button */}
-      <button
-        onClick={handleClear}
-        className="bg-secondary text-secondary-foreground hover:bg-secondary/90 border-border rounded-md border px-4 py-2 text-sm font-medium transition-colors"
-      >
-        🗑️ Clear
-      </button>
-    </div>
+    <label
+      className="bg-primary text-primary-foreground hover:bg-primary/90 border-primary inline-flex cursor-pointer items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+      style={{ zIndex: 1000 }}
+    >
+      {isProcessing ? (
+        <>
+          <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-r-transparent" />
+          Processing...
+        </>
+      ) : (
+        <>📁 Upload New Schema</>
+      )}
+      <input
+        type="file"
+        accept=".json"
+        onChange={handleFileSelect}
+        style={{ display: "none" }}
+        disabled={isProcessing}
+      />
+    </label>
   );
 }
