@@ -6,6 +6,7 @@ import { useState } from "react";
 import { AutoLayout } from "@/shared/lib/layout/auto-layout";
 import { JsonSchemaParser } from "@/shared/lib/parsers/json-parser";
 import { useSchemaStore } from "@/shared/store/schema-store";
+import { Button } from "@/shared/ui/shadcn/button";
 
 export default function SchemaDropZone() {
   const router = useRouter();
@@ -148,10 +149,11 @@ export default function SchemaDropZone() {
                 <div className="mb-2 text-lg font-medium">
                   Drop your schema file here
                 </div>
-                <div className="text-muted-foreground mb-2 text-sm">
-                  or click to browse
-                </div>
-                <div className="text-muted-foreground text-xs">
+                <div className="text-muted-foreground mb-4 text-sm">or</div>
+                <Button variant="outline" size="sm" disabled={isProcessing}>
+                  📁 Browse Files
+                </Button>
+                <div className="text-muted-foreground mt-4 text-xs">
                   JSON format only • Max 5MB
                 </div>
               </div>

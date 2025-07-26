@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import { useSchemaStore } from "@/shared/store/schema-store";
+import { Button } from "@/shared/ui/shadcn/button";
 import { ThemeToggle } from "@/shared/ui/theme-toggle";
 import SchemaUpload from "@/widgets/schema-upload";
 
@@ -29,12 +30,9 @@ export default function ErdHeader() {
         <div className="flex items-center gap-3">
           <ThemeToggle />
           <SchemaUpload />
-          <button
-            onClick={handleClear}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90 inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors"
-          >
+          <Button onClick={handleClear} variant={"destructive"}>
             🗑️ Clear
-          </button>
+          </Button>
         </div>
       </div>
     </div>

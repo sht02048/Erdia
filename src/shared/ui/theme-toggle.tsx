@@ -3,6 +3,8 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
+import { Button } from "./shadcn/button";
+
 export function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
@@ -20,9 +22,10 @@ export function ThemeToggle() {
   }
 
   return (
-    <button
+    <Button
+      variant={"secondary"}
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="border-border bg-background hover:bg-accent hover:text-accent-foreground inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium transition-colors"
+      className="border-border hover:bg-accent hover:text-accent-foreground cursor-pointer border"
     >
       {theme === "dark" ? (
         <>
@@ -35,6 +38,6 @@ export function ThemeToggle() {
           Dark
         </>
       )}
-    </button>
+    </Button>
   );
 }

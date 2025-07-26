@@ -5,6 +5,7 @@ import { useState } from "react";
 import { AutoLayout } from "@/shared/lib/layout/auto-layout";
 import { JsonSchemaParser } from "@/shared/lib/parsers/json-parser";
 import { useSchemaStore } from "@/shared/store/schema-store";
+import { Button } from "@/shared/ui/shadcn/button";
 
 export default function SchemaUpload() {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -85,25 +86,29 @@ export default function SchemaUpload() {
   };
 
   return (
-    <label
-      className="bg-primary text-primary-foreground hover:bg-primary/90 border-primary inline-flex cursor-pointer items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50"
-      style={{ zIndex: 1000 }}
+    <Button
+      variant="secondary"
+      disabled={isProcessing}
+      className="border-border hover:bg-accent hover:text-accent-foreground cursor-pointer border"
+      asChild
     >
-      {isProcessing ? (
-        <>
-          <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-r-transparent" />
-          Processing...
-        </>
-      ) : (
-        <>📁 Upload New Schema</>
-      )}
-      <input
-        type="file"
-        accept=".json"
-        onChange={handleFileSelect}
-        style={{ display: "none" }}
-        disabled={isProcessing}
-      />
-    </label>
+      <label className="cursor-pointer">
+        {isProcessing ? (
+          <>
+            <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-r-transparent" />
+            Processing...
+          </>
+        ) : (
+          <>📁 Upload New Schema</>
+        )}
+        <input
+          type="file"
+          accept=".json"
+          onChange={handleFileSelect}
+          style={{ display: "none" }}
+          disabled={isProcessing}
+        />
+      </label>
+    </Button>
   );
 }
