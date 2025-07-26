@@ -1,0 +1,176 @@
+{
+  "tables": [
+    {
+      "id": "customers",
+      "name": "customers",
+      "position": { "x": 100, "y": 100 },
+      "columns": [
+        { "name": "id", "type": "BIGINT", "isPrimaryKey": true, "isNotNull": true },
+        { "name": "email", "type": "VARCHAR(255)", "isNotNull": true },
+        { "name": "first_name", "type": "VARCHAR(50)", "isNotNull": true },
+        { "name": "last_name", "type": "VARCHAR(50)", "isNotNull": true },
+        { "name": "phone", "type": "VARCHAR(20)" },
+        { "name": "date_of_birth", "type": "DATE" },
+        { "name": "created_at", "type": "TIMESTAMP", "isNotNull": true },
+        { "name": "updated_at", "type": "TIMESTAMP" }
+      ]
+    },
+    {
+      "id": "products",
+      "name": "products",
+      "position": { "x": 500, "y": 100 },
+      "columns": [
+        { "name": "id", "type": "BIGINT", "isPrimaryKey": true, "isNotNull": true },
+        { "name": "name", "type": "VARCHAR(255)", "isNotNull": true },
+        { "name": "description", "type": "TEXT" },
+        { "name": "price", "type": "DECIMAL(10,2)", "isNotNull": true },
+        { "name": "cost", "type": "DECIMAL(10,2)" },
+        { "name": "sku", "type": "VARCHAR(100)", "isNotNull": true },
+        { "name": "stock_quantity", "type": "INT", "isNotNull": true },
+        { "name": "category_id", "type": "BIGINT", "isForeignKey": true },
+        { "name": "is_active", "type": "BOOLEAN", "isNotNull": true },
+        { "name": "created_at", "type": "TIMESTAMP", "isNotNull": true },
+        { "name": "updated_at", "type": "TIMESTAMP" }
+      ]
+    },
+    {
+      "id": "categories",
+      "name": "categories",
+      "position": { "x": 800, "y": 100 },
+      "columns": [
+        { "name": "id", "type": "BIGINT", "isPrimaryKey": true, "isNotNull": true },
+        { "name": "name", "type": "VARCHAR(100)", "isNotNull": true },
+        { "name": "slug", "type": "VARCHAR(100)", "isNotNull": true },
+        { "name": "description", "type": "TEXT" },
+        { "name": "parent_id", "type": "BIGINT", "isForeignKey": true },
+        { "name": "sort_order", "type": "INT" },
+        { "name": "is_active", "type": "BOOLEAN", "isNotNull": true },
+        { "name": "created_at", "type": "TIMESTAMP", "isNotNull": true }
+      ]
+    },
+    {
+      "id": "orders",
+      "name": "orders",
+      "position": { "x": 100, "y": 400 },
+      "columns": [
+        { "name": "id", "type": "BIGINT", "isPrimaryKey": true, "isNotNull": true },
+        { "name": "customer_id", "type": "BIGINT", "isForeignKey": true, "isNotNull": true },
+        { "name": "order_number", "type": "VARCHAR(50)", "isNotNull": true },
+        { "name": "status", "type": "ENUM('pending','processing','shipped','delivered','cancelled')", "isNotNull": true },
+        { "name": "subtotal", "type": "DECIMAL(10,2)", "isNotNull": true },
+        { "name": "tax_amount", "type": "DECIMAL(10,2)", "isNotNull": true },
+        { "name": "shipping_amount", "type": "DECIMAL(10,2)", "isNotNull": true },
+        { "name": "total_amount", "type": "DECIMAL(10,2)", "isNotNull": true },
+        { "name": "currency", "type": "VARCHAR(3)", "isNotNull": true },
+        { "name": "payment_status", "type": "ENUM('pending','paid','failed','refunded')", "isNotNull": true },
+        { "name": "shipping_address_id", "type": "BIGINT", "isForeignKey": true },
+        { "name": "billing_address_id", "type": "BIGINT", "isForeignKey": true },
+        { "name": "notes", "type": "TEXT" },
+        { "name": "created_at", "type": "TIMESTAMP", "isNotNull": true },
+        { "name": "updated_at", "type": "TIMESTAMP" }
+      ]
+    },
+    {
+      "id": "order_items",
+      "name": "order_items",
+      "position": { "x": 500, "y": 400 },
+      "columns": [
+        { "name": "id", "type": "BIGINT", "isPrimaryKey": true, "isNotNull": true },
+        { "name": "order_id", "type": "BIGINT", "isForeignKey": true, "isNotNull": true },
+        { "name": "product_id", "type": "BIGINT", "isForeignKey": true, "isNotNull": true },
+        { "name": "quantity", "type": "INT", "isNotNull": true },
+        { "name": "unit_price", "type": "DECIMAL(10,2)", "isNotNull": true },
+        { "name": "total_price", "type": "DECIMAL(10,2)", "isNotNull": true },
+        { "name": "created_at", "type": "TIMESTAMP", "isNotNull": true }
+      ]
+    },
+    {
+      "id": "addresses",
+      "name": "addresses",
+      "position": { "x": 100, "y": 700 },
+      "columns": [
+        { "name": "id", "type": "BIGINT", "isPrimaryKey": true, "isNotNull": true },
+        { "name": "customer_id", "type": "BIGINT", "isForeignKey": true },
+        { "name": "type", "type": "ENUM('billing','shipping','both')", "isNotNull": true },
+        { "name": "first_name", "type": "VARCHAR(50)", "isNotNull": true },
+        { "name": "last_name", "type": "VARCHAR(50)", "isNotNull": true },
+        { "name": "company", "type": "VARCHAR(100)" },
+        { "name": "address_line_1", "type": "VARCHAR(255)", "isNotNull": true },
+        { "name": "address_line_2", "type": "VARCHAR(255)" },
+        { "name": "city", "type": "VARCHAR(100)", "isNotNull": true },
+        { "name": "state", "type": "VARCHAR(50)" },
+        { "name": "postal_code", "type": "VARCHAR(20)", "isNotNull": true },
+        { "name": "country", "type": "VARCHAR(2)", "isNotNull": true },
+        { "name": "phone", "type": "VARCHAR(20)" },
+        { "name": "is_default", "type": "BOOLEAN" },
+        { "name": "created_at", "type": "TIMESTAMP", "isNotNull": true }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "customers-orders",
+      "sourceTableId": "customers",
+      "targetTableId": "orders",
+      "sourceColumn": "id",
+      "targetColumn": "customer_id",
+      "type": "one-to-many"
+    },
+    {
+      "id": "customers-addresses",
+      "sourceTableId": "customers",
+      "targetTableId": "addresses",
+      "sourceColumn": "id",
+      "targetColumn": "customer_id",
+      "type": "one-to-many"
+    },
+    {
+      "id": "categories-products",
+      "sourceTableId": "categories",
+      "targetTableId": "products",
+      "sourceColumn": "id",
+      "targetColumn": "category_id",
+      "type": "one-to-many"
+    },
+    {
+      "id": "categories-subcategories",
+      "sourceTableId": "categories",
+      "targetTableId": "categories",
+      "sourceColumn": "id",
+      "targetColumn": "parent_id",
+      "type": "one-to-many"
+    },
+    {
+      "id": "orders-order_items",
+      "sourceTableId": "orders",
+      "targetTableId": "order_items",
+      "sourceColumn": "id",
+      "targetColumn": "order_id",
+      "type": "one-to-many"
+    },
+    {
+      "id": "products-order_items",
+      "sourceTableId": "products",
+      "targetTableId": "order_items",
+      "sourceColumn": "id",
+      "targetColumn": "product_id",
+      "type": "one-to-many"
+    },
+    {
+      "id": "addresses-orders-shipping",
+      "sourceTableId": "addresses",
+      "targetTableId": "orders",
+      "sourceColumn": "id",
+      "targetColumn": "shipping_address_id",
+      "type": "one-to-many"
+    },
+    {
+      "id": "addresses-orders-billing",
+      "sourceTableId": "addresses",
+      "targetTableId": "orders",
+      "sourceColumn": "id",
+      "targetColumn": "billing_address_id",
+      "type": "one-to-many"
+    }
+  ]
+}

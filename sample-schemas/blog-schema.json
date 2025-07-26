@@ -1,0 +1,141 @@
+{
+  "tables": [
+    {
+      "id": "users",
+      "name": "users",
+      "columns": [
+        { "name": "id", "type": "BIGINT", "isPrimaryKey": true, "isNotNull": true },
+        { "name": "username", "type": "VARCHAR(50)", "isNotNull": true },
+        { "name": "email", "type": "VARCHAR(255)", "isNotNull": true },
+        { "name": "password_hash", "type": "VARCHAR(255)", "isNotNull": true },
+        { "name": "full_name", "type": "VARCHAR(100)" },
+        { "name": "bio", "type": "TEXT" },
+        { "name": "avatar_url", "type": "VARCHAR(500)" },
+        { "name": "created_at", "type": "TIMESTAMP", "isNotNull": true },
+        { "name": "updated_at", "type": "TIMESTAMP" }
+      ]
+    },
+    {
+      "id": "categories",
+      "name": "categories",
+      "columns": [
+        { "name": "id", "type": "BIGINT", "isPrimaryKey": true, "isNotNull": true },
+        { "name": "name", "type": "VARCHAR(100)", "isNotNull": true },
+        { "name": "slug", "type": "VARCHAR(100)", "isNotNull": true },
+        { "name": "description", "type": "TEXT" },
+        { "name": "color", "type": "VARCHAR(7)" },
+        { "name": "created_at", "type": "TIMESTAMP", "isNotNull": true }
+      ]
+    },
+    {
+      "id": "posts",
+      "name": "posts",
+      "columns": [
+        { "name": "id", "type": "BIGINT", "isPrimaryKey": true, "isNotNull": true },
+        { "name": "user_id", "type": "BIGINT", "isForeignKey": true, "isNotNull": true },
+        { "name": "category_id", "type": "BIGINT", "isForeignKey": true },
+        { "name": "title", "type": "VARCHAR(255)", "isNotNull": true },
+        { "name": "slug", "type": "VARCHAR(255)", "isNotNull": true },
+        { "name": "excerpt", "type": "TEXT" },
+        { "name": "content", "type": "LONGTEXT", "isNotNull": true },
+        { "name": "featured_image", "type": "VARCHAR(500)" },
+        { "name": "status", "type": "ENUM('draft','published','archived')", "isNotNull": true },
+        { "name": "published_at", "type": "TIMESTAMP" },
+        { "name": "created_at", "type": "TIMESTAMP", "isNotNull": true },
+        { "name": "updated_at", "type": "TIMESTAMP" }
+      ]
+    },
+    {
+      "id": "comments",
+      "name": "comments",
+      "columns": [
+        { "name": "id", "type": "BIGINT", "isPrimaryKey": true, "isNotNull": true },
+        { "name": "post_id", "type": "BIGINT", "isForeignKey": true, "isNotNull": true },
+        { "name": "user_id", "type": "BIGINT", "isForeignKey": true },
+        { "name": "parent_id", "type": "BIGINT", "isForeignKey": true },
+        { "name": "author_name", "type": "VARCHAR(100)" },
+        { "name": "author_email", "type": "VARCHAR(255)" },
+        { "name": "content", "type": "TEXT", "isNotNull": true },
+        { "name": "status", "type": "ENUM('pending','approved','spam')", "isNotNull": true },
+        { "name": "created_at", "type": "TIMESTAMP", "isNotNull": true }
+      ]
+    },
+    {
+      "id": "tags",
+      "name": "tags",
+      "columns": [
+        { "name": "id", "type": "BIGINT", "isPrimaryKey": true, "isNotNull": true },
+        { "name": "name", "type": "VARCHAR(50)", "isNotNull": true },
+        { "name": "slug", "type": "VARCHAR(50)", "isNotNull": true },
+        { "name": "created_at", "type": "TIMESTAMP", "isNotNull": true }
+      ]
+    },
+    {
+      "id": "post_tags",
+      "name": "post_tags",
+      "columns": [
+        { "name": "post_id", "type": "BIGINT", "isForeignKey": true, "isPrimaryKey": true, "isNotNull": true },
+        { "name": "tag_id", "type": "BIGINT", "isForeignKey": true, "isPrimaryKey": true, "isNotNull": true },
+        { "name": "created_at", "type": "TIMESTAMP", "isNotNull": true }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "users-posts",
+      "sourceTableId": "users",
+      "targetTableId": "posts",
+      "sourceColumn": "id",
+      "targetColumn": "user_id",
+      "type": "one-to-many"
+    },
+    {
+      "id": "categories-posts",
+      "sourceTableId": "categories",
+      "targetTableId": "posts",
+      "sourceColumn": "id",
+      "targetColumn": "category_id",
+      "type": "one-to-many"
+    },
+    {
+      "id": "posts-comments",
+      "sourceTableId": "posts",
+      "targetTableId": "comments",
+      "sourceColumn": "id",
+      "targetColumn": "post_id",
+      "type": "one-to-many"
+    },
+    {
+      "id": "users-comments",
+      "sourceTableId": "users",
+      "targetTableId": "comments",
+      "sourceColumn": "id",
+      "targetColumn": "user_id",
+      "type": "one-to-many"
+    },
+    {
+      "id": "comments-replies",
+      "sourceTableId": "comments",
+      "targetTableId": "comments",
+      "sourceColumn": "id",
+      "targetColumn": "parent_id",
+      "type": "one-to-many"
+    },
+    {
+      "id": "posts-post_tags",
+      "sourceTableId": "posts",
+      "targetTableId": "post_tags",
+      "sourceColumn": "id",
+      "targetColumn": "post_id",
+      "type": "one-to-many"
+    },
+    {
+      "id": "tags-post_tags",
+      "sourceTableId": "tags",
+      "targetTableId": "post_tags",
+      "sourceColumn": "id",
+      "targetColumn": "tag_id",
+      "type": "one-to-many"
+    }
+  ]
+}
