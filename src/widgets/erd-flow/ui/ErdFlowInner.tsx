@@ -1,5 +1,4 @@
 import { Background, Controls, ReactFlow } from "@xyflow/react";
-import { redirect } from "next/navigation";
 
 import { Schema } from "@/entities/table";
 import { convertSchemaToFlowData } from "@/shared/lib/erd-utils";
@@ -10,15 +9,10 @@ const nodeTypes = {
 };
 
 interface ErdFlowProps {
-  schema: Schema | null;
+  schema: Schema;
 }
 
 export default function ErdFlowInner({ schema }: ErdFlowProps) {
-  // Show empty state with drop zone if no schema
-  if (!schema || schema.tables.length === 0) {
-    redirect("upload");
-  }
-
   const { nodes, edges } = convertSchemaToFlowData(schema);
 
   return (

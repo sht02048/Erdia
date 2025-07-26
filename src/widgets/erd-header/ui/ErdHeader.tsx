@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
+import { pathKeys } from "@/shared/config";
 import { useSchemaStore } from "@/shared/store/schema-store";
 import { Button } from "@/shared/ui/shadcn/button";
 import { ThemeToggle } from "@/shared/ui/theme-toggle";
@@ -16,7 +17,7 @@ export default function ErdHeader() {
 
   const handleClear = () => {
     clearSchema();
-    router.push("/upload");
+    router.push(pathKeys.upload);
   };
 
   return (

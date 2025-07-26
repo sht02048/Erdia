@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 
+import { pathKeys } from "@/shared/config";
 import { useSchemaStore } from "@/shared/store/schema-store";
 import { SchemaZone, UploadThemeButton, UploadTitle } from "@/widgets/upload/";
 
@@ -9,7 +10,7 @@ export default function UploadPage() {
   const { hasSchema } = useSchemaStore();
 
   if (hasSchema()) {
-    redirect("/erd");
+    redirect(pathKeys.erd);
   }
 
   return (
