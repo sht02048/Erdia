@@ -27,10 +27,20 @@ function TableNode({ data }: TableNodeProps) {
           >
             <div className="flex items-center gap-2">
               {column.isPrimaryKey && (
-                <span className="text-erd-icon-primary text-xs" title="Primary Key">🔑</span>
+                <span
+                  className="text-erd-icon-primary text-xs"
+                  title="Primary Key"
+                >
+                  🔑
+                </span>
               )}
               {column.isForeignKey && (
-                <span className="text-erd-icon-secondary text-xs" title="Foreign Key">🔗</span>
+                <span
+                  className="text-erd-icon-secondary text-xs"
+                  title="Foreign Key"
+                >
+                  🔗
+                </span>
               )}
               <span className="text-erd-text-primary font-medium">
                 {column.name}
@@ -42,7 +52,9 @@ function TableNode({ data }: TableNodeProps) {
                 {column.type}
               </span>
               {column.isNotNull && (
-                <span className="text-erd-icon-danger text-xs" title="Not Null">*</span>
+                <span className="text-erd-icon-danger text-xs" title="Not Null">
+                  *
+                </span>
               )}
             </div>
           </div>
@@ -52,11 +64,13 @@ function TableNode({ data }: TableNodeProps) {
       <Handle
         type="target"
         position={Position.Left}
+        id="left"
         className="!bg-erd-handle"
       />
       <Handle
         type="source"
         position={Position.Right}
+        id="right"
         className="!bg-erd-handle"
       />
     </div>
