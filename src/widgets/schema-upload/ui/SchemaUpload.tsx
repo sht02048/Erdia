@@ -16,25 +16,20 @@ export default function SchemaUpload() {
     setLoading(true);
 
     try {
-      // Read file content
       const content = await readFileContent(file);
 
-      // Parse JSON
       const parser = new JsonSchemaParser();
       const schema = parser.parse(content);
 
-      // Validate schema
       const errors = parser.validate(schema);
       if (errors.length > 0) {
         setError(`Schema validation failed: ${errors.join(", ")}`);
         return;
       }
 
-      // Apply auto-layout if needed
       const layout = new AutoLayout();
       const layoutedSchema = layout.applyLayout(schema);
 
-      // Set warnings for auto-layout
       const hasPositions = schema.tables.some((table) => table.position);
       const warnings = hasPositions
         ? []
@@ -42,7 +37,6 @@ export default function SchemaUpload() {
             "Auto-layout applied - table positions were generated automatically",
           ];
 
-      // Load schema
       setSchema(layoutedSchema);
       setWarnings(warnings);
     } catch (error) {
@@ -75,7 +69,6 @@ export default function SchemaUpload() {
     if (file) {
       processFile(file);
     }
-    // Reset input
     e.target.value = "";
   };
 

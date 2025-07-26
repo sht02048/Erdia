@@ -25,24 +25,20 @@ export class AutoLayout {
     this.config = { ...DEFAULT_CONFIG, ...config };
   }
 
-  /**
-   * Apply auto-layout to tables that don't have positions
-   */
   applyLayout(schema: Schema): Schema {
     const tablesWithoutPosition = schema.tables.filter(
       (table) => !table.position
     );
 
     if (tablesWithoutPosition.length === 0) {
-      return schema; // All tables already have positions
+      return schema;
     }
 
-    // Calculate positions for tables without positions
     const newPositions = this.calculateGridLayout(tablesWithoutPosition.length);
 
     const updatedTables = schema.tables.map((table) => {
       if (table.position) {
-        return table; // Keep existing position
+        return table;
       }
 
       const index = tablesWithoutPosition.findIndex((t) => t.id === table.id);
@@ -58,13 +54,9 @@ export class AutoLayout {
     };
   }
 
-  /**
-   * Calculate grid layout positions
-   */
   private calculateGridLayout(count: number): Array<{ x: number; y: number }> {
     const positions: Array<{ x: number; y: number }> = [];
 
-    // Calculate optimal grid dimensions
     const cols = Math.ceil(Math.sqrt(count));
 
     for (let i = 0; i < count; i++) {
@@ -84,14 +76,10 @@ export class AutoLayout {
     return positions;
   }
 
-  /**
-   * Force-directed layout algorithm (simple version)
-   */
   applyForceDirectedLayout(schema: Schema, iterations: number = 50): Schema {
     const tables = [...schema.tables];
     const relationships = schema.relationships;
 
-    // Initialize positions if not set
     tables.forEach((table, index) => {
       if (!table.position) {
         const angle = (index / tables.length) * 2 * Math.PI;
@@ -103,16 +91,13 @@ export class AutoLayout {
       }
     });
 
-    // Apply force-directed algorithm
     for (let iter = 0; iter < iterations; iter++) {
       const forces = new Map<string, { x: number; y: number }>();
 
-      // Initialize forces
       tables.forEach((table) => {
         forces.set(table.id, { x: 0, y: 0 });
       });
 
-      // Repulsive forces between all nodes
       for (let i = 0; i < tables.length; i++) {
         for (let j = i + 1; j < tables.length; j++) {
           const table1 = tables[i];
@@ -138,7 +123,6 @@ export class AutoLayout {
         }
       }
 
-      // Attractive forces for connected nodes
       relationships.forEach((rel) => {
         const sourceTable = tables.find((t) => t.id === rel.sourceTableId);
         const targetTable = tables.find((t) => t.id === rel.targetTableId);
@@ -162,7 +146,6 @@ export class AutoLayout {
         targetForce.y -= fy;
       });
 
-      // Apply forces to positions
       tables.forEach((table) => {
         if (!table.position) return;
 
@@ -172,7 +155,6 @@ export class AutoLayout {
         table.position.x += force.x * damping;
         table.position.y += force.y * damping;
 
-        // Keep nodes in bounds
         table.position.x = Math.max(200, Math.min(4000, table.position.x));
         table.position.y = Math.max(200, Math.min(3000, table.position.y));
       });

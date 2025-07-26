@@ -33,12 +33,10 @@ export class JsonSchemaParser {
       throw new Error("Invalid JSON format");
     }
 
-    // Validate required structure
     if (!data.tables || !Array.isArray(data.tables)) {
       throw new Error("Schema must contain a 'tables' array");
     }
 
-    // Parse tables
     const tables: Table[] = data.tables.map((tableData, _index) => {
       if (!tableData.name || !tableData.columns) {
         throw new Error(
@@ -74,7 +72,6 @@ export class JsonSchemaParser {
       };
     });
 
-    // Parse relationships (optional)
     let relationships: Relationship[] = [];
     if (data.relationships && Array.isArray(data.relationships)) {
       relationships = data.relationships.map((relData, _index) => {
@@ -101,7 +98,6 @@ export class JsonSchemaParser {
   validate(schema: Schema): string[] {
     const errors: string[] = [];
 
-    // Validate tables
     if (schema.tables.length === 0) {
       errors.push("Schema must contain at least one table");
     }
@@ -117,7 +113,6 @@ export class JsonSchemaParser {
         errors.push(`Table '${table.name}' must have at least one column`);
       }
 
-      // Check for duplicate column names within table
       const columnNames = new Set<string>();
       table.columns.forEach((column) => {
         if (columnNames.has(column.name)) {
@@ -129,7 +124,6 @@ export class JsonSchemaParser {
       });
     });
 
-    // Validate relationships
     schema.relationships.forEach((relationship, index) => {
       const sourceTable = schema.tables.find(
         (t) => t.id === relationship.sourceTableId

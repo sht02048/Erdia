@@ -22,13 +22,11 @@ interface SchemaActions {
 export const useSchemaStore = create<SchemaState & SchemaActions>()(
   persist(
     (set, get) => ({
-      // State
       schema: null,
       isLoading: false,
       error: null,
       warnings: [],
 
-      // Actions
       setSchema: (schema) =>
         set({
           schema,

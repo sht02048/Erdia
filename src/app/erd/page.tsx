@@ -11,13 +11,11 @@ export default function ErdRoute() {
   const { hasSchema } = useSchemaStore();
 
   useEffect(() => {
-    // If no schema is loaded, redirect to upload page
     if (!hasSchema()) {
       router.push("/upload");
     }
   }, [hasSchema, router]);
 
-  // Don't render ERD if no schema
   if (!hasSchema()) {
     return null;
   }

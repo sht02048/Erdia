@@ -19,25 +19,20 @@ export default function SchemaDropZone() {
     setLoading(true);
 
     try {
-      // Read file content
       const content = await readFileContent(file);
 
-      // Parse JSON
       const parser = new JsonSchemaParser();
       const schema = parser.parse(content);
 
-      // Validate schema
       const errors = parser.validate(schema);
       if (errors.length > 0) {
         setError(`Schema validation failed: ${errors.join(", ")}`);
         return;
       }
 
-      // Apply auto-layout if needed
       const layout = new AutoLayout();
       const layoutedSchema = layout.applyLayout(schema);
 
-      // Set warnings for auto-layout
       const hasPositions = schema.tables.some((table) => table.position);
       const warnings = hasPositions
         ? []
@@ -45,11 +40,9 @@ export default function SchemaDropZone() {
             "Auto-layout applied - table positions were generated automatically",
           ];
 
-      // Load schema and redirect
       setSchema(layoutedSchema);
       setWarnings(warnings);
 
-      // Redirect to ERD page
       router.push("/erd");
     } catch (error) {
       setError(

@@ -24,7 +24,6 @@ export class SchemaParserFactory {
       const errors: string[] = [];
       const warnings: string[] = [];
 
-      // Determine parser based on file extension or content
       if (file.name.endsWith(".json") || file.type === "application/json") {
         schema = this.jsonParser.parse(content);
         const validationErrors = this.jsonParser.validate(schema);
@@ -33,7 +32,6 @@ export class SchemaParserFactory {
         throw new Error(`Unsupported file format: ${file.name}`);
       }
 
-      // Apply auto-layout if tables don't have positions
       const hasPositions = schema.tables.some((table) => table.position);
       if (!hasPositions) {
         schema = this.autoLayout.applyLayout(schema);

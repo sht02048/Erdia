@@ -99,6 +99,11 @@ Each FSD slice follows this structure:
 - **Commits**: Custom commitizen with 10 Korean gitmoji types
 - **Dark Mode**: Automatic dark mode support via CSS media queries
 
+## Code Style Guidelines
+
+- **Comments**: Only add comments when explanation is needed for non-common cases or complex logic
+- **Clean Code**: Write self-documenting code that doesn't require comments for basic functionality
+
 ## Development Workflow
 
 - Use `npm run commit` for interactive commits with custom gitmoji
