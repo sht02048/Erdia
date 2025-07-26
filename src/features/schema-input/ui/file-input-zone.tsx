@@ -6,7 +6,7 @@ import { useSchemaStore } from "@/shared/store/schema-store";
 
 import { Processing } from "./processing";
 
-export function FileInput() {
+export function FileInputZone() {
   const router = useRouter();
   const [isDragOver, setIsDragOver] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);

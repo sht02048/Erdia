@@ -1,9 +1,9 @@
-import { FileInput } from "@/features/schema-drop-zone";
+import { FileInputZone } from "@/features/schema-input";
 
 export function SchemaDropZone() {
   return (
     <div className="bg-background flex h-full w-full items-center justify-center">
-      <FileInput />
+      <FileInputZone />
     </div>
   );
 }
