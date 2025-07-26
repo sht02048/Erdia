@@ -1,4 +1,5 @@
 import { Handle, Position } from "@xyflow/react";
+import { memo } from "react";
 
 import { Column } from "@/entities/table";
 
@@ -11,7 +12,7 @@ export interface TableNodeProps {
   data: TableNodeData;
 }
 
-export default function TableNode({ data }: TableNodeProps) {
+function TableNode({ data }: TableNodeProps) {
   return (
     <div className="border-erd-table-border bg-erd-table-bg min-w-48 rounded-lg border shadow-xl">
       <div className="bg-erd-table-header-bg text-erd-text-primary rounded-t-lg px-4 py-2">
@@ -19,17 +20,17 @@ export default function TableNode({ data }: TableNodeProps) {
       </div>
 
       <div className="p-0">
-        {data.columns.map((column, index) => (
+        {data.columns.map((column) => (
           <div
-            key={index}
+            key={`${data.tableName}-${column.name}`}
             className="border-erd-table-border flex items-center justify-between border-b px-4 py-2 last:border-b-0"
           >
             <div className="flex items-center gap-2">
               {column.isPrimaryKey && (
-                <span className="text-erd-icon-primary text-xs">🔑</span>
+                <span className="text-erd-icon-primary text-xs" title="Primary Key">🔑</span>
               )}
               {column.isForeignKey && (
-                <span className="text-erd-icon-secondary text-xs">🔗</span>
+                <span className="text-erd-icon-secondary text-xs" title="Foreign Key">🔗</span>
               )}
               <span className="text-erd-text-primary font-medium">
                 {column.name}
@@ -41,7 +42,7 @@ export default function TableNode({ data }: TableNodeProps) {
                 {column.type}
               </span>
               {column.isNotNull && (
-                <span className="text-erd-icon-danger text-xs">*</span>
+                <span className="text-erd-icon-danger text-xs" title="Not Null">*</span>
               )}
             </div>
           </div>
@@ -61,3 +62,5 @@ export default function TableNode({ data }: TableNodeProps) {
     </div>
   );
 }
+
+export default memo(TableNode);

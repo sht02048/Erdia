@@ -19,11 +19,11 @@ export default function SchemaUpload() {
     try {
       // Read file content
       const content = await readFileContent(file);
-      
+
       // Parse JSON
       const parser = new JsonSchemaParser();
       const schema = parser.parse(content);
-      
+
       // Validate schema
       const errors = parser.validate(schema);
       if (errors.length > 0) {
@@ -45,7 +45,9 @@ export default function SchemaUpload() {
       console.log("Schema loaded successfully:", layoutedSchema);
     } catch (error) {
       console.error("Upload error:", error);
-      setError(error instanceof Error ? error.message : "Failed to process file");
+      setError(
+        error instanceof Error ? error.message : "Failed to process file"
+      );
     } finally {
       setIsProcessing(false);
     }
@@ -102,24 +104,22 @@ export default function SchemaUpload() {
       <button
         onClick={handleUploadClick}
         disabled={isProcessing}
-        className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 border border-primary rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="bg-primary text-primary-foreground hover:bg-primary/90 border-primary inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50"
       >
         {isProcessing ? (
           <>
-            <div className="w-4 h-4 border-2 border-current border-r-transparent rounded-full animate-spin" />
+            <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-r-transparent" />
             Processing...
           </>
         ) : (
-          <>
-            📁 Upload Schema
-          </>
+          <>📁 Upload Schema</>
         )}
       </button>
 
       {/* Clear Button */}
       <button
         onClick={handleClear}
-        className="px-4 py-2 text-sm font-medium bg-secondary text-secondary-foreground hover:bg-secondary/90 border border-border rounded-md transition-colors"
+        className="bg-secondary text-secondary-foreground hover:bg-secondary/90 border-border rounded-md border px-4 py-2 text-sm font-medium transition-colors"
       >
         🗑️ Clear
       </button>

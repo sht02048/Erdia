@@ -1,4 +1,4 @@
-import { Column, Relationship,Schema, Table } from "@/entities/table";
+import { Column, Relationship, Schema, Table } from "@/entities/table";
 
 export interface JsonSchemaInput {
   tables: Array<{
@@ -26,7 +26,7 @@ export interface JsonSchemaInput {
 export class JsonSchemaParser {
   parse(jsonString: string): Schema {
     let data: JsonSchemaInput;
-    
+
     try {
       data = JSON.parse(jsonString);
     } catch {
@@ -41,7 +41,9 @@ export class JsonSchemaParser {
     // Parse tables
     const tables: Table[] = data.tables.map((tableData, _index) => {
       if (!tableData.name || !tableData.columns) {
-        throw new Error(`Table at index ${_index} is missing required fields (name, columns)`);
+        throw new Error(
+          `Table at index ${_index} is missing required fields (name, columns)`
+        );
       }
 
       if (!Array.isArray(tableData.columns)) {
@@ -50,7 +52,9 @@ export class JsonSchemaParser {
 
       const columns: Column[] = tableData.columns.map((colData, colIndex) => {
         if (!colData.name || !colData.type) {
-          throw new Error(`Column at index ${colIndex} in table '${tableData.name}' is missing required fields (name, type)`);
+          throw new Error(
+            `Column at index ${colIndex} in table '${tableData.name}' is missing required fields (name, type)`
+          );
         }
 
         return {
@@ -75,7 +79,9 @@ export class JsonSchemaParser {
     if (data.relationships && Array.isArray(data.relationships)) {
       relationships = data.relationships.map((relData, _index) => {
         if (!relData.sourceTableId || !relData.targetTableId) {
-          throw new Error(`Relationship at index ${_index} is missing required fields`);
+          throw new Error(
+            `Relationship at index ${_index} is missing required fields`
+          );
         }
 
         return {
@@ -113,9 +119,11 @@ export class JsonSchemaParser {
 
       // Check for duplicate column names within table
       const columnNames = new Set<string>();
-      table.columns.forEach(column => {
+      table.columns.forEach((column) => {
         if (columnNames.has(column.name)) {
-          errors.push(`Duplicate column name '${column.name}' in table '${table.name}'`);
+          errors.push(
+            `Duplicate column name '${column.name}' in table '${table.name}'`
+          );
         }
         columnNames.add(column.name);
       });
@@ -123,23 +131,41 @@ export class JsonSchemaParser {
 
     // Validate relationships
     schema.relationships.forEach((relationship, index) => {
-      const sourceTable = schema.tables.find(t => t.id === relationship.sourceTableId);
-      const targetTable = schema.tables.find(t => t.id === relationship.targetTableId);
+      const sourceTable = schema.tables.find(
+        (t) => t.id === relationship.sourceTableId
+      );
+      const targetTable = schema.tables.find(
+        (t) => t.id === relationship.targetTableId
+      );
 
       if (!sourceTable) {
-        errors.push(`Relationship ${index}: Source table '${relationship.sourceTableId}' not found`);
+        errors.push(
+          `Relationship ${index}: Source table '${relationship.sourceTableId}' not found`
+        );
       }
 
       if (!targetTable) {
-        errors.push(`Relationship ${index}: Target table '${relationship.targetTableId}' not found`);
+        errors.push(
+          `Relationship ${index}: Target table '${relationship.targetTableId}' not found`
+        );
       }
 
-      if (sourceTable && !sourceTable.columns.find(c => c.name === relationship.sourceColumn)) {
-        errors.push(`Relationship ${index}: Source column '${relationship.sourceColumn}' not found in table '${sourceTable.name}'`);
+      if (
+        sourceTable &&
+        !sourceTable.columns.find((c) => c.name === relationship.sourceColumn)
+      ) {
+        errors.push(
+          `Relationship ${index}: Source column '${relationship.sourceColumn}' not found in table '${sourceTable.name}'`
+        );
       }
 
-      if (targetTable && !targetTable.columns.find(c => c.name === relationship.targetColumn)) {
-        errors.push(`Relationship ${index}: Target column '${relationship.targetColumn}' not found in table '${targetTable.name}'`);
+      if (
+        targetTable &&
+        !targetTable.columns.find((c) => c.name === relationship.targetColumn)
+      ) {
+        errors.push(
+          `Relationship ${index}: Target column '${relationship.targetColumn}' not found in table '${targetTable.name}'`
+        );
       }
     });
 

@@ -3,16 +3,22 @@ import { Background, Controls, ReactFlow } from "@xyflow/react";
 import { Schema } from "@/entities/table";
 import { convertSchemaToFlowData } from "@/shared/lib/erd-utils";
 import TableNode from "@/shared/ui/TableNode";
+import SchemaDropZone from "@/widgets/schema-dropzone";
 
 const nodeTypes = {
   tableNode: TableNode,
 };
 
 interface ErdFlowProps {
-  schema: Schema;
+  schema: Schema | null;
 }
 
 export default function ErdFlowInner({ schema }: ErdFlowProps) {
+  // Show empty state with drop zone if no schema
+  if (!schema || schema.tables.length === 0) {
+    return <SchemaDropZone />;
+  }
+
   const { nodes, edges } = convertSchemaToFlowData(schema);
 
   return (

@@ -1,15 +1,19 @@
-import { sampleSchema } from "@/shared/data/sample-schema";
+import { SchemaProvider } from "@/features/schema-management";
 import ErdFlow from "@/widgets/erd-flow";
 import ErdHeader from "@/widgets/erd-header";
+import SchemaStatus from "@/widgets/schema-status";
 
 export default function ErdPage() {
   return (
-    <div className="bg-erd-bg-primary h-screen w-full">
-      <ErdHeader />
+    <SchemaProvider>
+      <div className="bg-erd-bg-primary flex h-screen w-full flex-col">
+        <ErdHeader />
+        <SchemaStatus />
 
-      <div className="h-[calc(100vh-100px)]">
-        <ErdFlow schema={sampleSchema} />
+        <div className="flex-1">
+          <ErdFlow />
+        </div>
       </div>
-    </div>
+    </SchemaProvider>
   );
 }

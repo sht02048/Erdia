@@ -5,7 +5,12 @@
       "name": "customers",
       "position": { "x": 100, "y": 100 },
       "columns": [
-        { "name": "id", "type": "BIGINT", "isPrimaryKey": true, "isNotNull": true },
+        {
+          "name": "id",
+          "type": "BIGINT",
+          "isPrimaryKey": true,
+          "isNotNull": true
+        },
         { "name": "email", "type": "VARCHAR(255)", "isNotNull": true },
         { "name": "first_name", "type": "VARCHAR(50)", "isNotNull": true },
         { "name": "last_name", "type": "VARCHAR(50)", "isNotNull": true },
@@ -20,7 +25,12 @@
       "name": "products",
       "position": { "x": 500, "y": 100 },
       "columns": [
-        { "name": "id", "type": "BIGINT", "isPrimaryKey": true, "isNotNull": true },
+        {
+          "name": "id",
+          "type": "BIGINT",
+          "isPrimaryKey": true,
+          "isNotNull": true
+        },
         { "name": "name", "type": "VARCHAR(255)", "isNotNull": true },
         { "name": "description", "type": "TEXT" },
         { "name": "price", "type": "DECIMAL(10,2)", "isNotNull": true },
@@ -38,7 +48,12 @@
       "name": "categories",
       "position": { "x": 800, "y": 100 },
       "columns": [
-        { "name": "id", "type": "BIGINT", "isPrimaryKey": true, "isNotNull": true },
+        {
+          "name": "id",
+          "type": "BIGINT",
+          "isPrimaryKey": true,
+          "isNotNull": true
+        },
         { "name": "name", "type": "VARCHAR(100)", "isNotNull": true },
         { "name": "slug", "type": "VARCHAR(100)", "isNotNull": true },
         { "name": "description", "type": "TEXT" },
@@ -53,18 +68,48 @@
       "name": "orders",
       "position": { "x": 100, "y": 400 },
       "columns": [
-        { "name": "id", "type": "BIGINT", "isPrimaryKey": true, "isNotNull": true },
-        { "name": "customer_id", "type": "BIGINT", "isForeignKey": true, "isNotNull": true },
+        {
+          "name": "id",
+          "type": "BIGINT",
+          "isPrimaryKey": true,
+          "isNotNull": true
+        },
+        {
+          "name": "customer_id",
+          "type": "BIGINT",
+          "isForeignKey": true,
+          "isNotNull": true
+        },
         { "name": "order_number", "type": "VARCHAR(50)", "isNotNull": true },
-        { "name": "status", "type": "ENUM('pending','processing','shipped','delivered','cancelled')", "isNotNull": true },
+        {
+          "name": "status",
+          "type": "ENUM('pending','processing','shipped','delivered','cancelled')",
+          "isNotNull": true
+        },
         { "name": "subtotal", "type": "DECIMAL(10,2)", "isNotNull": true },
         { "name": "tax_amount", "type": "DECIMAL(10,2)", "isNotNull": true },
-        { "name": "shipping_amount", "type": "DECIMAL(10,2)", "isNotNull": true },
+        {
+          "name": "shipping_amount",
+          "type": "DECIMAL(10,2)",
+          "isNotNull": true
+        },
         { "name": "total_amount", "type": "DECIMAL(10,2)", "isNotNull": true },
         { "name": "currency", "type": "VARCHAR(3)", "isNotNull": true },
-        { "name": "payment_status", "type": "ENUM('pending','paid','failed','refunded')", "isNotNull": true },
-        { "name": "shipping_address_id", "type": "BIGINT", "isForeignKey": true },
-        { "name": "billing_address_id", "type": "BIGINT", "isForeignKey": true },
+        {
+          "name": "payment_status",
+          "type": "ENUM('pending','paid','failed','refunded')",
+          "isNotNull": true
+        },
+        {
+          "name": "shipping_address_id",
+          "type": "BIGINT",
+          "isForeignKey": true
+        },
+        {
+          "name": "billing_address_id",
+          "type": "BIGINT",
+          "isForeignKey": true
+        },
         { "name": "notes", "type": "TEXT" },
         { "name": "created_at", "type": "TIMESTAMP", "isNotNull": true },
         { "name": "updated_at", "type": "TIMESTAMP" }
@@ -75,9 +120,24 @@
       "name": "order_items",
       "position": { "x": 500, "y": 400 },
       "columns": [
-        { "name": "id", "type": "BIGINT", "isPrimaryKey": true, "isNotNull": true },
-        { "name": "order_id", "type": "BIGINT", "isForeignKey": true, "isNotNull": true },
-        { "name": "product_id", "type": "BIGINT", "isForeignKey": true, "isNotNull": true },
+        {
+          "name": "id",
+          "type": "BIGINT",
+          "isPrimaryKey": true,
+          "isNotNull": true
+        },
+        {
+          "name": "order_id",
+          "type": "BIGINT",
+          "isForeignKey": true,
+          "isNotNull": true
+        },
+        {
+          "name": "product_id",
+          "type": "BIGINT",
+          "isForeignKey": true,
+          "isNotNull": true
+        },
         { "name": "quantity", "type": "INT", "isNotNull": true },
         { "name": "unit_price", "type": "DECIMAL(10,2)", "isNotNull": true },
         { "name": "total_price", "type": "DECIMAL(10,2)", "isNotNull": true },
@@ -89,9 +149,18 @@
       "name": "addresses",
       "position": { "x": 100, "y": 700 },
       "columns": [
-        { "name": "id", "type": "BIGINT", "isPrimaryKey": true, "isNotNull": true },
+        {
+          "name": "id",
+          "type": "BIGINT",
+          "isPrimaryKey": true,
+          "isNotNull": true
+        },
         { "name": "customer_id", "type": "BIGINT", "isForeignKey": true },
-        { "name": "type", "type": "ENUM('billing','shipping','both')", "isNotNull": true },
+        {
+          "name": "type",
+          "type": "ENUM('billing','shipping','both')",
+          "isNotNull": true
+        },
         { "name": "first_name", "type": "VARCHAR(50)", "isNotNull": true },
         { "name": "last_name", "type": "VARCHAR(50)", "isNotNull": true },
         { "name": "company", "type": "VARCHAR(100)" },

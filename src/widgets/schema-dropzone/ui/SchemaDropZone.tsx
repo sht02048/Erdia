@@ -19,11 +19,11 @@ export default function SchemaDropZone() {
     try {
       // Read file content
       const content = await readFileContent(file);
-      
+
       // Parse JSON
       const parser = new JsonSchemaParser();
       const schema = parser.parse(content);
-      
+
       // Validate schema
       const errors = parser.validate(schema);
       if (errors.length > 0) {
@@ -45,7 +45,9 @@ export default function SchemaDropZone() {
       console.log("Schema loaded from drop zone:", layoutedSchema);
     } catch (error) {
       console.error("Drop zone error:", error);
-      setError(error instanceof Error ? error.message : "Failed to process file");
+      setError(
+        error instanceof Error ? error.message : "Failed to process file"
+      );
     } finally {
       setIsProcessing(false);
     }
@@ -70,9 +72,9 @@ export default function SchemaDropZone() {
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragOver(false);
-    
+
     const file = e.dataTransfer.files[0];
-    if (file && file.name.endsWith('.json')) {
+    if (file && file.name.endsWith(".json")) {
       processFile(file);
     } else {
       setError("Please upload a JSON file");
@@ -98,21 +100,20 @@ export default function SchemaDropZone() {
   };
 
   return (
-    <div className="h-full w-full flex items-center justify-center bg-erd-bg-primary">
-      <div className="max-w-md w-full mx-4">
+    <div className="bg-erd-bg-primary flex h-full w-full items-center justify-center">
+      <div className="mx-4 w-full max-w-md">
         <div
-          className={`
-            relative border-2 border-dashed rounded-lg p-8 text-center transition-colors
-            ${isDragOver 
-              ? "border-primary bg-primary/5" 
+          className={`relative rounded-lg border-2 border-dashed p-8 text-center transition-colors ${
+            isDragOver
+              ? "border-primary bg-primary/5"
               : "border-border hover:border-primary/50"
-            }
-            ${isProcessing ? "opacity-50 pointer-events-none" : "cursor-pointer"}
-          `}
+          } ${isProcessing ? "pointer-events-none opacity-50" : "cursor-pointer"} `}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
-          onClick={() => document.getElementById('dropzone-file-input')?.click()}
+          onClick={() =>
+            document.getElementById("dropzone-file-input")?.click()
+          }
         >
           <input
             id="dropzone-file-input"
@@ -121,37 +122,41 @@ export default function SchemaDropZone() {
             onChange={handleFileSelect}
             className="hidden"
           />
-          
+
           <div className="space-y-4">
             <div className="text-4xl">📁</div>
-            
+
             {isProcessing ? (
               <div className="text-muted-foreground">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <div className="w-4 h-4 border-2 border-current border-r-transparent rounded-full animate-spin" />
+                <div className="mb-2 flex items-center justify-center gap-2">
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-r-transparent" />
                   <span className="text-lg font-medium">Processing...</span>
                 </div>
                 <div className="text-sm">Reading your schema file</div>
               </div>
             ) : (
               <div className="text-foreground">
-                <div className="text-lg font-medium mb-2">Drop your schema file here</div>
-                <div className="text-sm text-muted-foreground mb-2">
+                <div className="mb-2 text-lg font-medium">
+                  Drop your schema file here
+                </div>
+                <div className="text-muted-foreground mb-2 text-sm">
                   or click to browse
                 </div>
-                <div className="text-xs text-muted-foreground">
+                <div className="text-muted-foreground text-xs">
                   JSON format only • Max 5MB
                 </div>
               </div>
             )}
           </div>
         </div>
-        
-        <div className="mt-6 text-center text-erd-text-secondary">
-          <h3 className="text-lg font-semibold mb-2 text-erd-text-primary">Welcome to Erdia</h3>
+
+        <div className="text-erd-text-secondary mt-6 text-center">
+          <h3 className="text-erd-text-primary mb-2 text-lg font-semibold">
+            Welcome to Erdia
+          </h3>
           <p className="text-sm">
-            Upload your database schema to visualize entity relationships.
-            Start by uploading a JSON schema file.
+            Upload your database schema to visualize entity relationships. Start
+            by uploading a JSON schema file.
           </p>
         </div>
       </div>
