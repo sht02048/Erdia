@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 import { pathKeys } from "@/shared/config";
 import { useSchemaStore } from "@/shared/store/schema-store";
-import { SchemaZone, UploadThemeButton, UploadTitle } from "@/widgets/upload/";
+import { SchemaZone, UploadThemeButton } from "@/widgets/upload/";
 
 export default function UploadPage() {
   const { hasSchema } = useSchemaStore();
@@ -16,7 +16,6 @@ export default function UploadPage() {
   return (
     <div className="bg-background relative flex min-h-screen items-center justify-center">
       <UploadThemeButton />
-      <UploadTitle />
       <SchemaZone />
     </div>
   );
