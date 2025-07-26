@@ -3,7 +3,8 @@
 import "@xyflow/react/dist/style.css";
 
 import { ReactFlowProvider } from "@xyflow/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useLayoutEffect } from "react";
 
 import { pathKeys } from "@/shared/config";
 import { useSchemaStore } from "@/shared/store/schema-store";
@@ -12,10 +13,15 @@ import ErdFlowInner from "./ErdFlowInner";
 
 export default function ErdFlow() {
   const { schema } = useSchemaStore();
+  const router = useRouter();
 
-  if (schema === null) {
-    redirect(pathKeys.upload);
-  }
+  useLayoutEffect(() => {
+    if (schema === null) {
+      router.push(pathKeys.upload);
+    }
+  }, [schema]);
+
+  if (schema === null) return null;
 
   return (
     <ReactFlowProvider>
