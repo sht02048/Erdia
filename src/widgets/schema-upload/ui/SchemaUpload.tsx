@@ -12,7 +12,6 @@ export default function SchemaUpload() {
   const { setSchema, setLoading, setError, setWarnings } = useSchemaStore();
 
   const processFile = async (file: File) => {
-    console.log("Processing file:", file.name);
     setIsProcessing(true);
     setLoading(true);
 
@@ -46,10 +45,7 @@ export default function SchemaUpload() {
       // Load schema
       setSchema(layoutedSchema);
       setWarnings(warnings);
-
-      console.log("Schema loaded successfully:", layoutedSchema);
     } catch (error) {
-      console.error("Upload error:", error);
       setError(
         error instanceof Error ? error.message : "Failed to process file"
       );
@@ -75,10 +71,8 @@ export default function SchemaUpload() {
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("File input changed!", e.target.files);
     const file = e.target.files?.[0];
     if (file) {
-      console.log("Processing file from header:", file.name);
       processFile(file);
     }
     // Reset input

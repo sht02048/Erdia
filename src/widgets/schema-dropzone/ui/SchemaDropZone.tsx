@@ -15,7 +15,6 @@ export default function SchemaDropZone() {
   const { setSchema, setLoading, setError, setWarnings } = useSchemaStore();
 
   const processFile = async (file: File) => {
-    console.log("Drop zone processing file:", file.name);
     setIsProcessing(true);
     setLoading(true);
 
@@ -50,12 +49,9 @@ export default function SchemaDropZone() {
       setSchema(layoutedSchema);
       setWarnings(warnings);
 
-      console.log("Schema loaded from drop zone:", layoutedSchema);
-
       // Redirect to ERD page
       router.push("/erd");
     } catch (error) {
-      console.error("Drop zone error:", error);
       setError(
         error instanceof Error ? error.message : "Failed to process file"
       );
@@ -103,10 +99,8 @@ export default function SchemaDropZone() {
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("Drop zone file input changed!", e.target.files);
     const file = e.target.files?.[0];
     if (file) {
-      console.log("Processing file from drop zone:", file.name);
       processFile(file);
     }
     e.target.value = "";
