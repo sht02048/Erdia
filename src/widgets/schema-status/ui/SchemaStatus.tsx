@@ -5,10 +5,6 @@ import { useSchemaStore } from "@/shared/store/schema-store";
 export default function SchemaStatus() {
   const { schema, isLoading, error, warnings } = useSchemaStore();
 
-  if (!schema && !isLoading && !error) {
-    return null;
-  }
-
   return (
     <div className="bg-muted border-border border-b px-4 py-2">
       {isLoading && (
