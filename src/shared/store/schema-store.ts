@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 import { Schema } from "@/entities/table";
 
@@ -18,45 +17,36 @@ interface SchemaActions {
 }
 
 export const useSchemaStore = create<SchemaState & SchemaActions>()(
-  persist(
-    (set, get) => ({
-      schema: null,
-      isLoading: false,
-      error: null,
-      warnings: [],
+  (set, get) => ({
+    schema: null,
+    isLoading: false,
+    error: null,
 
-      setSchema: (schema) =>
-        set({
-          schema,
-          error: null,
-          isLoading: false,
-        }),
-
-      clearSchema: () =>
-        set({
-          schema: null,
-          error: null,
-          isLoading: false,
-        }),
-
-      setLoading: (isLoading) => set({ isLoading }),
-
-      setError: (error) =>
-        set({
-          error,
-          isLoading: false,
-        }),
-
-      hasSchema: () => {
-        const state = get();
-        return state.schema !== null && state.schema.tables.length > 0;
-      },
-    }),
-    {
-      name: "erdia-schema-store",
-      partialize: (state) => ({
-        schema: state.schema,
+    setSchema: (schema) =>
+      set({
+        schema,
+        error: null,
+        isLoading: false,
       }),
-    }
-  )
+
+    clearSchema: () =>
+      set({
+        schema: null,
+        error: null,
+        isLoading: false,
+      }),
+
+    setLoading: (isLoading) => set({ isLoading }),
+
+    setError: (error) =>
+      set({
+        error,
+        isLoading: false,
+      }),
+
+    hasSchema: () => {
+      const state = get();
+      return state.schema !== null && state.schema.tables.length > 0;
+    },
+  })
 );
