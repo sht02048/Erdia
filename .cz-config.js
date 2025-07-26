@@ -43,27 +43,15 @@ module.exports = {
   ],
 
   scopes: [],
+  allowCustomScopes: false,
+  subjectLimit: 72,
 
-  allowCustomScopes: true,
-  allowBreakingChanges: false,
+  // 이 항목에 나열된 질문은 전부 건너뜁니다
+  skipQuestions: ["scope", "body", "footer"],
 
-  // override the messages, defaults are as follows
+  // 남길 질문만 정의
   messages: {
-    type: "변경사항의 유형을 선택하세요:",
-    scope: "변경 범위를 입력하세요 (선택사항):",
-    customScope: "변경 범위를 입력하세요:",
-    subject: "변경사항에 대한 간단한 설명을 입력하세요:\n",
-    body: '변경사항에 대한 자세한 설명을 입력하세요 (선택사항). "|"를 사용하여 줄바꿈:\n',
-    breaking: "Breaking Changes에 대한 설명 (선택사항):\n",
-    footer: "이슈 번호가 있다면 입력하세요 (선택사항). 예: #31, #34:\n",
-    confirmCommit: "위 내용으로 커밋하시겠습니까?",
+    type: "커밋 유형을 선택하세요:",
+    subject: "커밋 메시지를 작성하세요",
   },
-
-  allowCustomScopes: true,
-  allowBreakingChanges: false,
-
-  // limit subject length
-  subjectLimit: 50,
-  bodyLineLength: 72,
-  footerPrefix: "ISSUES CLOSED:",
 };
