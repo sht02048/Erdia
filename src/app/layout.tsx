@@ -14,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className="antialiased">{children}</body>
+      <body className="flex items-center justify-center antialiased">
+        {children}
+      </body>
     </html>
   );
 }
