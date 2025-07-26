@@ -1,0 +1,131 @@
+{
+  "tables": [
+    {
+      "id": "users",
+      "name": "users",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "isPrimaryKey": true,
+          "isNotNull": true
+        },
+        {
+          "name": "username",
+          "type": "VARCHAR(50)",
+          "isNotNull": true
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR(100)",
+          "isNotNull": true
+        },
+        {
+          "name": "password_hash",
+          "type": "VARCHAR(255)",
+          "isNotNull": true
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP",
+          "isNotNull": true
+        },
+        {
+          "name": "last_login",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "id": "posts",
+      "name": "posts",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "isPrimaryKey": true,
+          "isNotNull": true
+        },
+        {
+          "name": "user_id",
+          "type": "INTEGER",
+          "isForeignKey": true,
+          "isNotNull": true
+        },
+        {
+          "name": "title",
+          "type": "VARCHAR(255)",
+          "isNotNull": true
+        },
+        {
+          "name": "content",
+          "type": "TEXT",
+          "isNotNull": true
+        },
+        {
+          "name": "status",
+          "type": "ENUM('draft','published','archived')",
+          "isNotNull": true
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP",
+          "isNotNull": true
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "name": "settings",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "isPrimaryKey": true,
+          "isNotNull": true
+        },
+        {
+          "name": "setting_key",
+          "type": "VARCHAR(100)",
+          "isNotNull": true
+        },
+        {
+          "name": "setting_value",
+          "type": "TEXT"
+        },
+        {
+          "name": "description",
+          "type": "VARCHAR(255)"
+        },
+        {
+          "name": "is_active",
+          "type": "BOOLEAN",
+          "isNotNull": true
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP",
+          "isNotNull": true
+        },
+        {
+          "name": "updated_at",
+          "type": "TIMESTAMP"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "users-posts",
+      "sourceTableId": "users",
+      "targetTableId": "posts",
+      "sourceColumn": "id",
+      "targetColumn": "user_id",
+      "type": "one-to-many"
+    }
+  ]
+}
