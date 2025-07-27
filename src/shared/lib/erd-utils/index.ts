@@ -25,7 +25,20 @@ export function convertRelationshipToEdge(relationship: Relationship): Edge {
     type: "smoothstep",
     style: { stroke: "var(--erd-connection-line)", strokeWidth: 2 },
     label: `${relationship.sourceColumn} → ${relationship.targetColumn}`,
-    labelStyle: { fontSize: 10, fill: "var(--erd-text-secondary)" },
+    labelStyle: {
+      fontSize: 12,
+      fontWeight: 500,
+      fill: "var(--erd-text-primary)",
+      backgroundColor: "var(--erd-bg-secondary)",
+    },
+    labelBgPadding: [8, 8],
+    labelBgBorderRadius: 4,
+    labelBgStyle: {
+      fill: "var(--erd-bg-secondary)",
+      stroke: "var(--erd-border-primary)",
+      strokeWidth: 1,
+      fillOpacity: 0.9,
+    },
   };
 }
 
