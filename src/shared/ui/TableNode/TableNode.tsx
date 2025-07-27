@@ -40,8 +40,18 @@ function TableNode({ data }: TableNodeProps) {
           {data.columns.map((column) => (
             <div
               key={`${data.tableName}-${column.name}`}
-              className="border-border flex items-center justify-between gap-8 border-b px-4 py-2 last:border-b-0"
+              className="border-border relative flex items-center justify-between gap-8 border-b px-4 py-2 last:border-b-0"
             >
+              {column.isForeignKey && (
+                <Handle
+                  type="target"
+                  position={Position.Left}
+                  id={`${column.name}-target`}
+                  className="!bg-primary !left-0 !h-2 !w-2 !border-0"
+                  style={{ top: "50%", transform: "translateY(-50%)" }}
+                />
+              )}
+
               <div className="flex items-center gap-2">
                 {column.isPrimaryKey && (
                   <span className="text-primary text-xs" title="Primary Key">
@@ -87,22 +97,19 @@ function TableNode({ data }: TableNodeProps) {
                   </span>
                 )}
               </div>
+
+              {column.isPrimaryKey && (
+                <Handle
+                  type="source"
+                  position={Position.Right}
+                  id={`${column.name}-source`}
+                  className="!bg-primary !right-0 !h-2 !w-2 !border-0"
+                  style={{ top: "50%", transform: "translateY(-50%)" }}
+                />
+              )}
             </div>
           ))}
         </div>
-
-        <Handle
-          type="target"
-          position={Position.Left}
-          id="left"
-          className="!bg-primary"
-        />
-        <Handle
-          type="source"
-          position={Position.Right}
-          id="right"
-          className="!bg-primary"
-        />
       </div>
     </TooltipProvider>
   );

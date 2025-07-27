@@ -20,10 +20,12 @@ export function convertRelationshipToEdge(relationship: Relationship): Edge {
     id: relationship.id,
     source: relationship.sourceTableId,
     target: relationship.targetTableId,
-    sourceHandle: "right",
-    targetHandle: "left",
+    sourceHandle: `${relationship.sourceColumn}-source`,
+    targetHandle: `${relationship.targetColumn}-target`,
     type: "smoothstep",
     style: { stroke: "var(--erd-connection-line)", strokeWidth: 2 },
+    label: `${relationship.sourceColumn} → ${relationship.targetColumn}`,
+    labelStyle: { fontSize: 10, fill: "var(--erd-text-secondary)" },
   };
 }
 
