@@ -2,11 +2,11 @@
 
 import { useRouter } from "next/navigation";
 
+import { FileInputButton } from "@/features/schema-input";
 import { pathKeys } from "@/shared/config";
 import { useSchemaStore } from "@/shared/store/schema-store";
 import { Button } from "@/shared/ui/shadcn/button";
 import { ThemeToggle } from "@/shared/ui/theme-toggle";
-import SchemaUpload from "@/widgets/schema-upload";
 
 const TITLE = "Erdia";
 const DESCRIPTION = "Interactive Entity Relationship Diagram";
@@ -30,7 +30,7 @@ export default function ErdHeader() {
 
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <SchemaUpload />
+          <FileInputButton />
           <Button onClick={handleClear} variant={"destructive"}>
             🗑️ Clear
           </Button>

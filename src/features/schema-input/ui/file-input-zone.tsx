@@ -1,62 +1,22 @@
-import { useRouter } from "next/router";
+"use client";
+
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { AutoLayout, JsonSchemaParser } from "@/shared/lib/parsers";
+import { pathKeys } from "@/shared/config";
 import { useSchemaStore } from "@/shared/store/schema-store";
 
+import { useInputProcess } from "../hooks";
 import { Processing } from "./processing";
 
 export function FileInputZone() {
   const router = useRouter();
   const [isDragOver, setIsDragOver] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const { setSchema, setLoading, setError } = useSchemaStore();
+  const { setError } = useSchemaStore();
+  const { isProcessing, processFile } = useInputProcess();
 
-  const processFile = async (file: File) => {
-    setIsProcessing(true);
-    setLoading(true);
-
-    try {
-      const content = await readFileContent(file);
-
-      const parser = new JsonSchemaParser();
-      const schema = parser.parse(content);
-
-      const errors = parser.validate(schema);
-      if (errors.length > 0) {
-        setError(`Schema validation failed: ${errors.join(", ")}`);
-        return;
-      }
-
-      const layout = new AutoLayout();
-      const layoutedSchema = layout.applyLayout(schema);
-
-      setSchema(layoutedSchema);
-
-      router.push("/erd");
-    } catch (error) {
-      setError(
-        error instanceof Error ? error.message : "Failed to process file"
-      );
-    } finally {
-      setIsProcessing(false);
-    }
-  };
-
-  const readFileContent = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const content = e.target?.result;
-        if (typeof content === "string") {
-          resolve(content);
-        } else {
-          reject(new Error("Failed to read file content"));
-        }
-      };
-      reader.onerror = () => reject(new Error("File reading failed"));
-      reader.readAsText(file);
-    });
+  const onSuccess = () => {
+    router.push(pathKeys.erd);
   };
 
   const handleDrop = (e: React.DragEvent) => {
@@ -65,7 +25,7 @@ export function FileInputZone() {
 
     const file = e.dataTransfer.files[0];
     if (file && file.name.endsWith(".json")) {
-      processFile(file);
+      processFile({ file, onSuccess });
     } else {
       setError("Please upload a JSON file");
     }
@@ -84,7 +44,7 @@ export function FileInputZone() {
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      processFile(file);
+      processFile({ file, onSuccess });
     }
     e.target.value = "";
   };
