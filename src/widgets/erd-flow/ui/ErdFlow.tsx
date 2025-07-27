@@ -19,7 +19,7 @@ export default function ErdFlow() {
     if (schema === null) {
       router.push(pathKeys.upload);
     }
-  }, [schema]);
+  }, [schema, router]);
 
   if (schema === null) return null;
 

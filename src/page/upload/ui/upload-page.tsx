@@ -15,7 +15,7 @@ export default function UploadPage() {
     if (hasSchema()) {
       router.push(pathKeys.erd);
     }
-  }, []);
+  }, [hasSchema, router]);
 
   return (
     <div className="bg-background relative flex min-h-screen items-center justify-center">
