@@ -1,4 +1,10 @@
-import { Background, Controls, ReactFlow } from "@xyflow/react";
+import {
+  Background,
+  Controls,
+  ReactFlow,
+  useEdgesState,
+  useNodesState,
+} from "@xyflow/react";
 
 import { Schema } from "@/entities/table";
 import { convertSchemaToFlowData } from "@/shared/lib/erd-utils";
@@ -13,7 +19,11 @@ interface ErdFlowProps {
 }
 
 export default function ErdFlowInner({ schema }: ErdFlowProps) {
-  const { nodes, edges } = convertSchemaToFlowData(schema);
+  const { nodes: initialNodes, edges: initialEdges } =
+    convertSchemaToFlowData(schema);
+
+  const [nodes, , onNodesChange] = useNodesState(initialNodes);
+  const [edges, , onEdgesChange] = useEdgesState(initialEdges);
 
   return (
     <div className="h-full w-full">
@@ -21,6 +31,9 @@ export default function ErdFlowInner({ schema }: ErdFlowProps) {
         nodes={nodes}
         edges={edges}
         nodeTypes={nodeTypes}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        nodesDraggable={true}
         fitView
         className="bg-erd-bg-primary"
       >
